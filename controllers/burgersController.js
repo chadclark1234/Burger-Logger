@@ -2,7 +2,6 @@ var express = require("express");
 
 var router = express.Router();
 
-// Import the model (cat.js) to use its database functions.
 var burgers = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
@@ -11,18 +10,14 @@ router.get("/", function (req, res) {
     var hbsObject = {
       burgers: data,
     };
-    console.log(hbsObject);
+    // console.log(hbsObject);
     res.render("index", hbsObject);
   });
 });
 
 router.post("/api/burgers", function (req, res) {
   burgers.create(
-    [
-      //changed from name,sleepy
-      "burger_name",
-      "devoured",
-    ], //changed req.body.sleepy-now delete not working
+    ["burger_name", "devoured"],
     [req.body.burger_name, req.body.devoured],
     function (result) {
       // Send back the ID of the new quote
@@ -38,7 +33,6 @@ router.put("/api/burgers/:id", function (req, res) {
 
   burgers.update(
     {
-      // devoured,
       devoured: req.body.devoured,
     },
     condition,
